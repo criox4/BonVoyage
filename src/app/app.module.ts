@@ -14,6 +14,9 @@ import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { MyWishlistComponent } from './pages/my-wishlist/my-wishlist.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { FaqComponent } from './pages/faq/faq.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomepageHeroComponent } from './components/homepage-hero/homepage-hero.component';
+import { HeroComponent } from './components/hero/hero.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { FaqComponent } from './pages/faq/faq.component';
     MyBookingsComponent,
     MyWishlistComponent,
     AdminDashboardComponent,
-    FaqComponent
+    FaqComponent,
+    FooterComponent,
+    HomepageHeroComponent,
+    HeroComponent
   ],
   imports: [
     BrowserModule,
