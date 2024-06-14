@@ -1,1 +1,7 @@
-<p>hero works!</p>
+<section class="relative bg-cover bg-center h-64 flex items-center justify-center"
+    [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 text-center text-white">
+        <h1 class="text-3xl md:text-5xl font-bold">{{ title }}</h1>
+    </div>
+</section>

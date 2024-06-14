@@ -1,1 +1,14 @@
-<p>faq works!</p>
+<app-hero title="Frequently Asked Questions" backgroundImage="https://i.ibb.co/6n8rFdH/wallpaperflare-com-wallpaper-2.jpg"></app-hero>
+<section class="container mx-auto px-4 py-10">
+  <div class="space-y-4">
+    <div *ngFor="let faq of faqs; let i = index" class="border-b pb-4">
+      <button (click)="toggle(i)" class="w-full text-left flex justify-between items-center py-2">
+        <span class="text-xl">{{ faq.question }}</span>
+        <span class="text-2xl">{{ faq.open ? '−' : '+' }}</span>
+      </button>
+      <div [ngClass]="{ 'hidden': !faq.open }" class="mt-2">
+        <p class="text-gray-700">{{ faq.answer }}</p>
+      </div>
+    </div>
+  </div>
+</section>
