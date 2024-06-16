@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +40,9 @@ import { HeroComponent } from './components/hero/hero.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule, // Add ReactiveFormsModule here
+    HttpClientModule // Add HttpClientModule here
   ],
   providers: [
     provideClientHydration()
