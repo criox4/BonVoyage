@@ -1,1 +1,37 @@
-<p>sign-in works!</p>
+<div class="relative w-full h-screen bg-cover bg-center"
+    style="background-image: url('https://i.ibb.co/GdqrWKV/tourists.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 container mx-auto px-4 py-20 flex justify-center items-center h-full">
+        <div class="w-full max-w-md bg-white bg-opacity-80 p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold mb-4 text-[#0C1844] text-center">Welcome Back!</h2>
+            <p class="mb-6 text-gray-700 text-center">Sign in to continue your journey with us.</p>
+            <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+                <div class="mb-4">
+                    <label for="userEmail" class="block text-gray-700">Email</label>
+                    <input id="userEmail" formControlName="userEmail" type="email" class="w-full px-3 py-2 border rounded" />
+                    <div *ngIf="signInForm.get('userEmail')?.invalid && signInForm.get('userEmail')?.touched"
+                        class="text-red-500 text-sm">
+                        Enter a valid email.
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="userPassword" class="block text-gray-700">Password</label>
+                    <input id="userPassword" formControlName="userPassword" type="password" class="w-full px-3 py-2 border rounded" />
+                    <div *ngIf="signInForm.get('userPassword')?.invalid && signInForm.get('userPassword')?.touched"
+                        class="text-red-500 text-sm">
+                        Password must be at least 8 characters long.
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-[#C80036] hover:bg-[#FF6969] text-white py-2 px-4 rounded">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="showError" class="fixed bottom-0 right-0 m-6 p-4 bg-red-500 text-white rounded shadow-md">
+        {{ errorMessage }}
+    </div>
+</div>

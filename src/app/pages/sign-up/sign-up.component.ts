@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignupService } from '../../services/signup.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ export class SignUpComponent {
   signUpForm: FormGroup;
   showError: boolean = false;
   errorMessage: string = '';
+  @Output() userLoggedIn = new EventEmitter<void>();
 
   constructor(private fb: FormBuilder, private signupService: SignupService, private router: Router) {
     this.signUpForm = this.fb.group({
@@ -41,6 +42,7 @@ export class SignUpComponent {
         response => {
           if (response.success) {
             this.signupService.cacheUserData(response);
+            this.userLoggedIn.emit(); // Emit event
             this.router.navigate(['/']);
           } else {
             this.errorMessage = response.errorMessage;
