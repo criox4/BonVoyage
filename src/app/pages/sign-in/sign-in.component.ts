@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SigninService } from '../../services/signin.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { SigninService } from '../../services/signin.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,6 +13,7 @@ export class SignInComponent {
   signInForm: FormGroup;
   showError: boolean = false;
   errorMessage: string = '';
+  @Output() userLoggedIn = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -31,8 +32,17 @@ export class SignInComponent {
       this.signinService.login(this.signInForm.value).subscribe(
         response => {
           if (response.success) {
-            this.authService.login(response);
-            this.router.navigate(['/']);
+            this.authService.login(response); // Cache user data using AuthService
+            this.userLoggedIn.emit(); // Emit event
+            // Redirect based on userRole
+            if (response.userRole === 'user') {
+              this.router.navigate(['/']);
+            } else if (response.userRole === 'admin') {
+              this.router.navigate(['/admin-dashboard']);
+            } else {
+              // Handle other roles or scenarios
+              this.router.navigate(['/']);
+            }
           } else {
             this.errorMessage = response.errorMessage;
             this.showError = true;
