@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';  // Ensure FormsModule is imported
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,13 +36,14 @@ import { HeroComponent } from './components/hero/hero.component';
     FaqComponent,
     FooterComponent,
     HomepageHeroComponent,
-    HeroComponent
+    HeroComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule, // Add ReactiveFormsModule here
-    HttpClientModule // Add HttpClientModule here
+    HttpClientModule, // Add HttpClientModule here
+    FormsModule,
   ],
   providers: [
     provideClientHydration()
