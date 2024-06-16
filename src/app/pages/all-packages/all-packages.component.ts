@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { PackagesService } from '../../services/packages.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-packages',
@@ -10,42 +10,24 @@ import { PackagesService } from '../../services/packages.service';
 export class AllPackagesComponent implements OnInit {
   packages: any[] = [];
   searchLocation: string = '';
-  showError: boolean = false;
-  errorMessage: string = '';
 
   constructor(private packagesService: PackagesService, private router: Router) {}
 
   ngOnInit(): void {
-    this.fetchAllPackages();
-  }
-
-  fetchAllPackages(): void {
-    this.packagesService.getAllPackages().subscribe(
-      data => {
-        this.packages = data;
-      },
-      error => {
-        this.showError = true;
-        this.errorMessage = 'Error fetching packages. Please try again later.';
-        setTimeout(() => this.showError = false, 4000);
-      }
-    );
+    this.packagesService.getAllPackages().subscribe(data => {
+      this.packages = data;
+    });
   }
 
   onSearch(): void {
     if (this.searchLocation.trim()) {
-      this.packagesService.searchPackages(this.searchLocation).subscribe(
-        data => {
-          this.packages = data;
-        },
-        error => {
-          this.showError = true;
-          this.errorMessage = 'Error fetching packages. Please try again later.';
-          setTimeout(() => this.showError = false, 4000);
-        }
-      );
+      this.packagesService.searchPackages(this.searchLocation).subscribe(data => {
+        this.packages = data;
+      });
     } else {
-      this.fetchAllPackages();
+      this.packagesService.getAllPackages().subscribe(data => {
+        this.packages = data;
+      });
     }
   }
 
@@ -55,7 +37,11 @@ export class AllPackagesComponent implements OnInit {
 
   getDiscountedPrice(originalPrice: string): string {
     const price = parseFloat(originalPrice.replace('$', '').trim());
-    const discountedPrice = (price * 0.8).toFixed(2);
+    const discountedPrice = (price * 1.2).toFixed(2);
     return `$ ${discountedPrice}`;
+  }
+
+  getStarsArray(rating: number): any[] {
+    return new Array(Math.floor(rating));
   }
 }

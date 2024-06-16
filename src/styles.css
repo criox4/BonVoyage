@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .bg-primary {
+        background-color: #0C1844;
+    }
+
+    .bg-secondary {
+        background-color: #C80036;
+    }
+
+    .bg-accent {
+        background-color: #FF6969;
+    }
+
+    .bg-light {
+        background-color: #FFF5E1;
+    }
+
+    .text-primary {
+        color: #0C1844;
+    }
+
+    .text-secondary {
+        color: #C80036;
+    }
+
+    .text-accent {
+        color: #FF6969;
+    }
+
+    .text-light {
+        color: #FFF5E1;
+    }
+}
