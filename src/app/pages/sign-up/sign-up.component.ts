@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignupService } from '../../services/signup.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,8 +10,10 @@ import { SignupService } from '../../services/signup.service';
 })
 export class SignUpComponent {
   signUpForm: FormGroup;
+  showError: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private signupService: SignupService) {
+  constructor(private fb: FormBuilder, private signupService: SignupService, private router: Router) {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
       userEmail: ['', [Validators.required, Validators.email]],
@@ -36,10 +39,20 @@ export class SignUpComponent {
 
       this.signupService.register(user).subscribe(
         response => {
-          console.log('User registered successfully', response);
+          if (response.success) {
+            this.signupService.cacheUserData(response);
+            this.router.navigate(['/']);
+          } else {
+            this.errorMessage = response.errorMessage;
+            this.showError = true;
+            setTimeout(() => this.showError = false, 4000);
+          }
         },
         error => {
           console.error('Error registering user', error);
+          this.errorMessage = 'An error occurred. Please try again.';
+          this.showError = true;
+          setTimeout(() => this.showError = false, 4000);
         }
       );
     }
