@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SigninService } from '../../services/signin.service';
 import { Router } from '@angular/router';
@@ -31,7 +31,6 @@ export class SignInComponent {
       this.signinService.login(this.signInForm.value).subscribe(
         response => {
           if (response.success) {
-            this.signinService.cacheUserData(response);
             this.authService.login(response);
             this.router.navigate(['/']);
           } else {
