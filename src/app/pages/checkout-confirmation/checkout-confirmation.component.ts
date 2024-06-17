@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class CheckoutConfirmationComponent implements OnInit {
   booking: any;
+  backgroundUrl: string = 'https://i.ibb.co/ZKBnRtj/ezgif-com-gif-maker-1-1.webp'; 
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();

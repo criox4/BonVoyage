@@ -1,34 +1,34 @@
-<div class="relative w-full h-96 bg-cover bg-center" [style.background-image]="'url(' + package.packageImage + ')'">
+<div class="relative w-full h-96 bg-cover bg-center" [style.background-image]="'url(' + package?.packageImage + ')'">
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="relative z-10 container mx-auto px-4 py-20 text-left text-white">
-        <h1 class="text-4xl font-bold mb-2">{{ package.packageName }}</h1>
-        <p class="text-xl mb-6">{{ package.packageCountry }}, {{ package.packageCity }}</p>
+        <h1 class="text-4xl font-bold mb-2">{{ package?.packageName }}</h1>
+        <p class="text-xl mb-6">{{ package?.packageCountry }}, {{ package?.packageCity }}</p>
     </div>
 </div>
 
 <div class="container mx-auto px-4 py-10">
-    <h2 class="text-2xl font-bold mb-4">Package Details</h2>
-    <p class="mb-4">{{ package.packageDesc }}</p>
-    <p class="mb-2"><strong>Rating:</strong> {{ package.packageRating }} ({{ package.packageReviews }} reviews)</p>
-    <p class="mb-2"><strong>Price:</strong> {{ package.packagePrice }}</p>
-    <p class="mb-2"><strong>Duration:</strong> {{ package.packageDuration }}</p>
-    <p class="mb-2"><strong>Minimum Age:</strong> {{ package.minAge }}</p>
-    <p class="mb-2"><strong>Maximum People:</strong> {{ package.maxPeople }}</p>
-    <p class="mb-2"><strong>Pickup Location:</strong> {{ package.packagePickup }}</p>
-    <p class="mb-2"><strong>Available Date:</strong> {{ package.availableDate }}</p>
-    <p class="mb-2"><strong>Languages:</strong> {{ package.packageLanguage }}</p>
+    <h2 class="text-3xl font-bold mb-4 text-primary">Package Details</h2>
+    <p class="mb-4 text-lg text-gray-700">{{ package?.packageDesc }}</p>
+    <p class="mb-2 text-lg"><strong>Rating:</strong> {{ package?.packageRating }} <i class="fas fa-star text-secondary"></i> ({{ package?.packageReviews }} reviews)</p>
+    <p class="mb-2 text-lg"><strong>Price:</strong> <span class="text-secondary">{{ package?.packagePrice }}</span></p>
+    <p class="mb-2 text-lg"><strong>Duration:</strong> {{ package?.packageDuration }}</p>
+    <p class="mb-2 text-lg"><strong>Minimum Age:</strong> {{ package?.minAge }}</p>
+    <p class="mb-2 text-lg"><strong>Maximum People:</strong> {{ package?.maxPeople }}</p>
+    <p class="mb-2 text-lg"><strong>Pickup Location:</strong> {{ package?.packagePickup }}</p>
+    <p class="mb-2 text-lg"><strong>Available Date:</strong> {{ package?.availableDate }}</p>
+    <p class="mb-2 text-lg"><strong>Languages:</strong> {{ package?.packageLanguage }}</p>
 
-    <h2 class="text-2xl font-bold mt-8 mb-4">Itinerary</h2>
-    <table class="min-w-full bg-white">
+    <h2 class="text-3xl font-bold mt-8 mb-4 text-primary">Itinerary</h2>
+    <table class="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
         <thead>
-            <tr>
+            <tr class="bg-primary text-white">
                 <th class="py-2 px-4 border">Day</th>
                 <th class="py-2 px-4 border">Title</th>
                 <th class="py-2 px-4 border">Activities</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of itinerary">
+            <tr *ngFor="let item of itinerary" class="odd:bg-light even:bg-white">
                 <td class="py-2 px-4 border">{{ item.day }}</td>
                 <td class="py-2 px-4 border">{{ item.title }}</td>
                 <td class="py-2 px-4 border">{{ item.activities }}</td>
@@ -40,12 +40,10 @@
         <button *ngIf="!isLoggedIn" class="bg-gray-400 text-white py-2 px-4 rounded cursor-not-allowed">
             Not Logged in, Please Login First to book
         </button>
-        <button *ngIf="isLoggedIn" (click)="bookPackage()"
-            class="bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition duration-300">
+        <button *ngIf="isLoggedIn" (click)="bookPackage()" class="bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition duration-300">
             Book the Package
         </button>
-        <button *ngIf="isLoggedIn" (click)="addToWishlist()"
-            class="bg-secondary text-white py-2 px-4 rounded hover:bg-primary transition duration-300">
+        <button *ngIf="isLoggedIn" (click)="addToWishlist()" class="bg-secondary text-white py-2 px-4 rounded hover:bg-primary transition duration-300">
             <i class="fas fa-bookmark"></i> Add to Wishlist
         </button>
     </div>
