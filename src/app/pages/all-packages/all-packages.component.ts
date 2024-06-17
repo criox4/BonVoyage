@@ -30,11 +30,22 @@ export class AllPackagesComponent implements OnInit {
       });
     }
   }
+  
+    performSearch(): void {
+      if (this.searchLocation.trim()) {
+        this.packagesService.searchPackages(this.searchLocation).subscribe(data => {
+          this.packages = data;
+        });
+      } else {
+        this.packagesService.getAllPackages().subscribe(data => {
+          this.packages = data;
+        });
+      }
+    }
 
   showDetails(packageId: string): void {
     this.router.navigate(['/packages', packageId]);
   }
-  
 
   getDiscountedPrice(originalPrice: string): string {
     const price = parseFloat(originalPrice.replace('$', '').trim());

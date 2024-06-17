@@ -1,12 +1,11 @@
 <section class="bg-cover bg-center h-screen flex items-center justify-center" style="background-image: url('https://i.ibb.co/sVn4Ks2/638513975784242383-Xj9yf-S.jpg');">
-    <div class="bg-opacity-70 bg-black p-10 rounded-lg text-center text-white max-w-2xl">
+  <div class="bg-opacity-70 bg-black p-10 rounded-lg text-center text-white max-w-2xl">
       <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to BonVoyage</h1>
       <p class="text-lg md:text-2xl mb-8">Your adventure begins here. Explore the world with our exclusive packages.</p>
-      <form class="mb-8">
-        <input type="text" placeholder="Search by Destination" class="p-2 w-full rounded mb-2 text-black"/>
-        <button type="submit" class="bg-[#C80036] hover:bg-[#FF6969] text-white font-semibold py-2 px-4 rounded">Search</button>
+      <form (submit)="onSearch()" class="mb-8">
+          <input type="text" [(ngModel)]="searchLocation" name="searchLocation" placeholder="Search by Destination" class="p-2 w-full rounded mb-2 text-black"/>
+          <button type="submit" class="bg-[#C80036] hover:bg-[#FF6969] text-white font-semibold py-2 px-4 rounded">Search</button>
       </form>
       <a href="/all-packages" class="bg-[#C80036] hover:bg-[#FF6969] text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300">Explore Packages</a>
-    </div>
-  </section>
-  
+  </div>
+</section>
