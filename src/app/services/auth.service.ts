@@ -54,4 +54,15 @@ export class AuthService {
     }
     return null;
   }
+
+  getUserName(): string | null {
+    if (this.isBrowser) {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        return user.name; // Assuming the user object has a `name` property
+      }
+    }
+    return null;
+  }
 }

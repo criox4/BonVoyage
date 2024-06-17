@@ -10,6 +10,8 @@ import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { MyWishlistComponent } from './pages/my-wishlist/my-wishlist.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { FaqComponent } from './pages/faq/faq.component';
+import { BookingInformationComponent } from './pages/booking-information/booking-information.component';
+
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -19,10 +21,11 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'checkout-confirmation', component: CheckoutConfirmationComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
+  { path: 'booking-information', component: BookingInformationComponent },
   { path: 'my-wishlist', component: MyWishlistComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'faq', component: FaqComponent },
-  { path: '**', redirectTo: '' }  // redirect to homepage for unknown routes
+  { path: '**', redirectTo: '' }  
 ];
 
 @NgModule({

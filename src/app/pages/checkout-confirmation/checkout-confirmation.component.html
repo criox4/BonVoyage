@@ -1,1 +1,10 @@
-<p>checkout-confirmation works!</p>
+<div class="container mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-8">Thank You for Your Booking!</h1>
+    <div class="bg-white shadow-lg rounded p-6">
+        <p class="mb-2"><strong>Booking ID:</strong> {{ booking.bookingId }}</p>
+        <p class="mb-2"><strong>Package:</strong> {{ booking.packageID }}</p>
+        <p class="mb-2"><strong>Booking Date:</strong> {{ booking.bookingDate }}</p>
+        <p class="mb-2"><strong>Booking Person:</strong> {{ booking.bookingPerson }}</p>
+        <p class="mb-2"><strong>Number of Persons:</strong> {{ booking.bookingRooms }}</p>
+    </div>
+</div>

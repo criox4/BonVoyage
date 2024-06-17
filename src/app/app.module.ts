@@ -21,6 +21,7 @@ import { FaqComponent } from './pages/faq/faq.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomepageHeroComponent } from './components/homepage-hero/homepage-hero.component';
 import { HeroComponent } from './components/hero/hero.component';
+import { BookingInformationComponent } from './pages/booking-information/booking-information.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { HeroComponent } from './components/hero/hero.component';
     FooterComponent,
     HomepageHeroComponent,
     HeroComponent,
+    BookingInformationComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,44 +15,40 @@ export class IndividualPackageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private packagesService: PackagesService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const packageId = this.route.snapshot.paramMap.get('id') || '';
-  
-    this.packagesService.getPackageDetails(packageId).subscribe(data => {
-      this.package = data;
-    });
-  
-    this.packagesService.getPackageItinerary(packageId).subscribe(data => {
-      this.itinerary = data;
-    });
-  
-    this.authService.loggedIn$.subscribe(loggedIn => {
-      this.isLoggedIn = loggedIn;
-    });
-  }  
+    const packageId = this.route.snapshot.paramMap.get('id');
+    if (packageId) {
+      this.packagesService.getPackageDetails(packageId).subscribe(data => {
+        this.package = data;
+      });
+
+      this.packagesService.getPackageItinerary(packageId).subscribe(data => {
+        this.itinerary = data;
+      });
+
+      this.authService.loggedIn$.subscribe(isLoggedIn => {
+        this.isLoggedIn = isLoggedIn;
+      });
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 
   bookPackage(): void {
-    if (!this.isLoggedIn) {
-      alert('Not Logged in, Please Login First to book');
-      return;
-    }
-    this.router.navigate(['/booking-information', this.package.packageID]);
+    this.router.navigate(['/booking-information'], { state: { package: this.package } });
   }
 
   addToWishlist(): void {
     const userId = this.authService.getUserId();
-    if (!userId) {
-      alert('Not Logged in, Please Login First to add to wishlist');
-      return;
+    if (userId) {
+      this.packagesService.addToWishlist(userId, this.package.packageID).subscribe(() => {
+        alert('Wishlisted successfully');
+      });
     }
-    this.packagesService.addToWishlist(userId, this.package.packageID).subscribe(
-      () => alert('Wishlisted successfully'),
-      error => console.error('Error adding to wishlist', error)
-    );
   }
 }
