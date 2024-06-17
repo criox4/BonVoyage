@@ -25,12 +25,15 @@
         <li><a href="/all-packages"
             class="block py-2 pr-4 pl-3 text-gray-700 rounded lg:bg-transparent lg:p-0 lg:hover:text-[#C80036]">Packages</a>
         </li>
-        <li *ngIf="isLoggedIn"><a href="/my-bookings"
+        <li *ngIf="isLoggedIn && userRole !== 'admin'"><a href="/my-bookings"
             class="block py-2 pr-4 pl-3 text-gray-700 rounded lg:bg-transparent lg:p-0 lg:hover:text-[#C80036]">My
             Bookings</a></li>
-        <li *ngIf="isLoggedIn"><a href="/my-wishlist"
+        <li *ngIf="isLoggedIn && userRole !== 'admin'"><a href="/my-wishlist"
             class="block py-2 pr-4 pl-3 text-gray-700 rounded lg:bg-transparent lg:p-0 lg:hover:text-[#C80036]">Wishlist</a>
         </li>
+        <li *ngIf="isLoggedIn && userRole === 'admin'"><a href="/admin-dashboard"
+            class="block py-2 pr-4 pl-3 text-gray-700 rounded lg:bg-transparent lg:p-0 lg:hover:text-[#C80036]">Admin
+            Dashboard</a></li>
         <li><a href="/faq"
             class="block py-2 pr-4 pl-3 text-gray-700 rounded lg:bg-transparent lg:p-0 lg:hover:text-[#C80036]">FAQ</a>
         </li>

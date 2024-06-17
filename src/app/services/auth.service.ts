@@ -8,9 +8,11 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userName = new BehaviorSubject<string>('');
+  private userRole = new BehaviorSubject<string>('');
 
   loggedIn$ = this.loggedIn.asObservable();
   userName$ = this.userName.asObservable();
+  userRole$ = this.userRole.asObservable();
   private isBrowser: boolean;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
@@ -24,6 +26,7 @@ export class AuthService {
     }
     this.loggedIn.next(true);
     this.userName.next(userData.name);
+    this.userRole.next(userData.role); 
   }
 
   logout(): void {
@@ -32,6 +35,7 @@ export class AuthService {
     }
     this.loggedIn.next(false);
     this.userName.next('');
+    this.userRole.next('');
   }
 
   setInitialAuthState(): void {
@@ -49,7 +53,7 @@ export class AuthService {
       const userData = localStorage.getItem('user');
       if (userData) {
         const user = JSON.parse(userData);
-        return user.userId; // Assuming the user object has an `id` property
+        return user.userId; 
       }
     }
     return null;
@@ -60,7 +64,18 @@ export class AuthService {
       const userData = localStorage.getItem('user');
       if (userData) {
         const user = JSON.parse(userData);
-        return user.name; // Assuming the user object has a `name` property
+        return user.name; 
+      }
+    }
+    return null;
+  }
+
+  getUserRole(): string | null {
+    if (this.isBrowser) {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        return user.role; 
       }
     }
     return null;
