@@ -53,6 +53,7 @@ export class IndividualPackageComponent implements OnInit {
   }
 
   addToWishlist(): void {
+    console.log("Button Clicked");
     const userId = this.authService.getUserId();
     if (userId) {
       this.packagesService.addToWishlist(userId, this.package.packageID).subscribe(

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PackagesService {
-  private apiUrl = 'http://localhost:9191/api/packages';
+  private apiUrl = 'http://localhost:8080/api/packages';
   private wishApiUrl = 'http://localhost:8090/api';
 
   constructor(private http: HttpClient) {}
@@ -28,6 +28,7 @@ export class PackagesService {
   }
 
   addToWishlist(userId: string, wishlistId: string): Observable<any> {
+    console.log("API HIT")
     return this.http.post<any>(`${this.wishApiUrl}/users/${userId}/wishlist/${wishlistId}`, {});
   }
 }
