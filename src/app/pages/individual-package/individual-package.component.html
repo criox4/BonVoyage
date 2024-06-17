@@ -1,21 +1,52 @@
-<div class="container mx-auto px-4 py-10">
-    <div *ngIf="showError" class="fixed bottom-0 right-0 m-6 p-4 bg-red-500 text-white rounded shadow-md">
-        {{ errorMessage }}
+<div class="relative w-full h-96 bg-cover bg-center" [style.background-image]="'url(' + package.packageImage + ')'">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 container mx-auto px-4 py-20 text-left text-white">
+        <h1 class="text-4xl font-bold mb-2">{{ package.packageName }}</h1>
+        <p class="text-xl mb-6">{{ package.packageCountry }}, {{ package.packageCity }}</p>
     </div>
-    <div *ngIf="package" class="p-4 border rounded shadow-md">
-        <img [src]="package.packageImage" alt="{{ package.packageName }}"
-            class="w-full h-64 object-cover rounded mb-4" />
-        <h2 class="text-2xl font-bold">{{ package.packageName }}</h2>
-        <p>{{ package.packageCountry }}, {{ package.packageCity }}</p>
-        <p>Rating: {{ package.packageRating }} ({{ package.packageReviews }} reviews)</p>
-        <p>Duration: {{ package.packageDuration }}</p>
-        <p>{{ package.packageDesc }}</p>
-        <p>Price: <span class="line-through text-red-500">{{ getDiscountedPrice(package.packagePrice) }}</span> <span
-                class="ml-2 text-green-500">{{ package.packagePrice }}</span></p>
-        <p>Min Age: {{ package.minAge }}</p>
-        <p>Max People: {{ package.maxPeople }}</p>
-        <p>Pickup: {{ package.packagePickup }}</p>
-        <p>Available Date: {{ package.availableDate }}</p>
-        <p>Languages: {{ package.packageLanguage }}</p>
+</div>
+
+<div class="container mx-auto px-4 py-10">
+    <h2 class="text-2xl font-bold mb-4">Package Details</h2>
+    <p class="mb-4">{{ package.packageDesc }}</p>
+    <p class="mb-2"><strong>Rating:</strong> {{ package.packageRating }} ({{ package.packageReviews }} reviews)</p>
+    <p class="mb-2"><strong>Price:</strong> {{ package.packagePrice }}</p>
+    <p class="mb-2"><strong>Duration:</strong> {{ package.packageDuration }}</p>
+    <p class="mb-2"><strong>Minimum Age:</strong> {{ package.minAge }}</p>
+    <p class="mb-2"><strong>Maximum People:</strong> {{ package.maxPeople }}</p>
+    <p class="mb-2"><strong>Pickup Location:</strong> {{ package.packagePickup }}</p>
+    <p class="mb-2"><strong>Available Date:</strong> {{ package.availableDate }}</p>
+    <p class="mb-2"><strong>Languages:</strong> {{ package.packageLanguage }}</p>
+
+    <h2 class="text-2xl font-bold mt-8 mb-4">Itinerary</h2>
+    <table class="min-w-full bg-white">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border">Day</th>
+                <th class="py-2 px-4 border">Title</th>
+                <th class="py-2 px-4 border">Activities</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itinerary">
+                <td class="py-2 px-4 border">{{ item.day }}</td>
+                <td class="py-2 px-4 border">{{ item.title }}</td>
+                <td class="py-2 px-4 border">{{ item.activities }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-8">
+        <button *ngIf="!isLoggedIn" class="bg-gray-400 text-white py-2 px-4 rounded cursor-not-allowed">
+            Not Logged in, Please Login First to book
+        </button>
+        <button *ngIf="isLoggedIn" (click)="bookPackage()"
+            class="bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition duration-300">
+            Book the Package
+        </button>
+        <button (click)="addToWishlist()"
+            class="bg-secondary text-white py-2 px-4 rounded hover:bg-primary transition duration-300">
+            <i class="fas fa-bookmark"></i> Add to Wishlist
+        </button>
     </div>
 </div>

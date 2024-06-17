@@ -32,8 +32,9 @@ export class AllPackagesComponent implements OnInit {
   }
 
   showDetails(packageId: string): void {
-    this.router.navigate(['/individual-package', packageId]);
+    this.router.navigate(['/packages', packageId]);
   }
+  
 
   getDiscountedPrice(originalPrice: string): string {
     const price = parseFloat(originalPrice.replace('$', '').trim());

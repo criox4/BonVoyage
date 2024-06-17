@@ -43,4 +43,15 @@ export class AuthService {
       }
     }
   }
+
+  getUserId(): string | null {
+    if (this.isBrowser) {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        return user.id; // Assuming the user object has an `id` property
+      }
+    }
+    return null;
+  }
 }

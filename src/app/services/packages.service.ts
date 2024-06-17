@@ -21,4 +21,12 @@ export class PackagesService {
   getPackageDetails(packageId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/onePackage/${packageId}`);
   }
+
+  getPackageItinerary(packageId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/itinerary/${packageId}`);
+  }
+
+  addToWishlist(userId: string, wishlistId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/users/${userId}/wishlist/${wishlistId}`, {});
+  }
 }

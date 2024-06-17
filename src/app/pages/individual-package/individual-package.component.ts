@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PackagesService } from '../../services/packages.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-individual-package',
@@ -9,30 +10,49 @@ import { PackagesService } from '../../services/packages.service';
 })
 export class IndividualPackageComponent implements OnInit {
   package: any;
-  showError: boolean = false;
-  errorMessage: string = '';
+  itinerary: any[] = [];
+  isLoggedIn: boolean = false;
 
-  constructor(private route: ActivatedRoute, private packagesService: PackagesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private packagesService: PackagesService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const packageId = this.route.snapshot.paramMap.get('packageId');
-    if (packageId) {
-      this.packagesService.getPackageDetails(packageId).subscribe(
-        data => {
-          this.package = data;
-        },
-        error => {
-          this.showError = true;
-          this.errorMessage = 'Error fetching package details. Please try again later.';
-          setTimeout(() => this.showError = false, 4000);
-        }
-      );
+    const packageId = this.route.snapshot.paramMap.get('id') || '';
+  
+    this.packagesService.getPackageDetails(packageId).subscribe(data => {
+      this.package = data;
+    });
+  
+    this.packagesService.getPackageItinerary(packageId).subscribe(data => {
+      this.itinerary = data;
+    });
+  
+    this.authService.loggedIn$.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+    });
+  }  
+
+  bookPackage(): void {
+    if (!this.isLoggedIn) {
+      alert('Not Logged in, Please Login First to book');
+      return;
     }
+    this.router.navigate(['/booking-information', this.package.packageID]);
   }
 
-  getDiscountedPrice(originalPrice: string): string {
-    const price = parseFloat(originalPrice.replace('$', '').trim());
-    const discountedPrice = (price * 0.8).toFixed(2);
-    return `$ ${discountedPrice}`;
+  addToWishlist(): void {
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      alert('Not Logged in, Please Login First to add to wishlist');
+      return;
+    }
+    this.packagesService.addToWishlist(userId, this.package.packageID).subscribe(
+      () => alert('Wishlisted successfully'),
+      error => console.error('Error adding to wishlist', error)
+    );
   }
 }

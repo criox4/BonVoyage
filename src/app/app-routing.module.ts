@@ -14,7 +14,7 @@ import { FaqComponent } from './pages/faq/faq.component';
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'all-packages', component: AllPackagesComponent },
-  { path: 'package/:id', component: IndividualPackageComponent },
+  { path: 'packages/:id', component: IndividualPackageComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'checkout-confirmation', component: CheckoutConfirmationComponent },
