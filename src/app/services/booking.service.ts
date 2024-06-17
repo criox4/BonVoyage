@@ -11,6 +11,7 @@ export class BookingService {
   constructor(private http: HttpClient) {}
 
   createBooking(bookingData: any): Observable<any> {
+    console.log("Api HIT");
     return this.http.post<any>(this.apiUrl, bookingData);
   }
 }

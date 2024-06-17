@@ -34,8 +34,13 @@ export class BookingInformationComponent {
       bookingRooms: this.bookingRooms
     };
 
-    this.bookingService.createBooking(bookingData).subscribe((response) => {
-      this.router.navigate(['/checkout-confirmation'], { state: { booking: response[0] } });
-    });
+    this.bookingService.createBooking(bookingData).subscribe(
+      (response) => {
+        this.router.navigate(['/checkout-confirmation'], { state: { booking: response[0] } });
+      },
+      error => {
+        console.error('Error creating booking:', error);
+      }
+    );
   }
 }

@@ -21,34 +21,56 @@ export class IndividualPackageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadPackageDetails();
+    this.loadItinerary();
+    this.authService.loggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
+  }
+
+  private loadPackageDetails(): void {
     const packageId = this.route.snapshot.paramMap.get('id');
     if (packageId) {
       this.packagesService.getPackageDetails(packageId).subscribe(data => {
         this.package = data;
-      });
-
-      this.packagesService.getPackageItinerary(packageId).subscribe(data => {
-        this.itinerary = data;
-      });
-
-      this.authService.loggedIn$.subscribe(isLoggedIn => {
-        this.isLoggedIn = isLoggedIn;
+      }, error => {
+        console.error('Error loading package details:', error);
       });
     } else {
       this.router.navigate(['/']);
     }
   }
 
-  bookPackage(): void {
-    this.router.navigate(['/booking-information'], { state: { package: this.package } });
+  private loadItinerary(): void {
+    const packageId = this.route.snapshot.paramMap.get('id');
+    if (packageId) {
+      this.packagesService.getPackageItinerary(packageId).subscribe(data => {
+        this.itinerary = data;
+      }, error => {
+        console.error('Error loading itinerary:', error);
+      });
+    }
   }
 
   addToWishlist(): void {
     const userId = this.authService.getUserId();
     if (userId) {
-      this.packagesService.addToWishlist(userId, this.package.packageID).subscribe(() => {
-        alert('Wishlisted successfully');
-      });
+      this.packagesService.addToWishlist(userId, this.package.packageID).subscribe(
+        () => {
+          alert('Wishlisted successfully');
+        },
+        error => {
+          console.error('Error adding to wishlist:', error);
+        }
+      );
+    }
+  }
+
+  bookPackage(): void {
+    if (this.isLoggedIn) {
+      this.router.navigate(['/booking-information'], { state: { package: this.package } });
+    } else {
+      alert('You must be logged in to book a package');
     }
   }
 }
