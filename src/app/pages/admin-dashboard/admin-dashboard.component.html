@@ -1,1 +1,19 @@
-<p>admin-dashboard works!</p>
+<app-hero title="Admin Dashboard"
+    backgroundImage="https://i.ibb.co/6n8rFdH/wallpaperflare-com-wallpaper-2.jpg"></app-hero>
+
+<div class="container mx-auto py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+            <div>
+                <div class="text-xl font-medium text-black">Total Bookings</div>
+                <p class="text-gray-500">{{ bookingsCount }}</p>
+            </div>
+        </div>
+        <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+            <div>
+                <div class="text-xl font-medium text-black">Total Packages</div>
+                <p class="text-gray-500">{{ packagesCount }}</p>
+            </div>
+        </div>
+    </div>
+</div>

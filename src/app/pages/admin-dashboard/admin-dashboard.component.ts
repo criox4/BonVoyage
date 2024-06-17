@@ -1,10 +1,29 @@
-import { Component } from '@angular/core';
+// src/app/pages/admin-dashboard/admin-dashboard.component.ts
+import { Component, OnInit } from '@angular/core';
+import { AdminDashboardService } from '../../services/admin-dashboard.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+  styleUrls: ['./admin-dashboard.component.css']
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit {
+  bookingsCount: number = 0;
+  packagesCount: number = 0;
 
+  constructor(private adminDashboardService: AdminDashboardService) {}
+
+  ngOnInit(): void {
+    this.loadCounts();
+  }
+
+  loadCounts(): void {
+    this.adminDashboardService.getBookingsCount().subscribe(count => {
+      this.bookingsCount = count;
+    });
+
+    this.adminDashboardService.getPackagesCount().subscribe(count => {
+      this.packagesCount = count;
+    });
+  }
 }
