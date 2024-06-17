@@ -1,3 +1,4 @@
+// src/app/components/hero/hero.component.ts
 import { Component, Input } from '@angular/core';
 
 @Component({

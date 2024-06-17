@@ -28,7 +28,14 @@ export class PackagesService {
   }
 
   addToWishlist(userId: string, wishlistId: string): Observable<any> {
-    console.log("API HIT")
     return this.http.post<any>(`${this.wishApiUrl}/users/${userId}/wishlist/${wishlistId}`, {});
+  }
+
+  getWishlist(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.wishApiUrl}/users/${userId}/wishlist`);
+  }
+
+  removeFromWishlist(userId: string, wishlistId: string): Observable<any> {
+    return this.http.delete<any>(`${this.wishApiUrl}/users/${userId}/wishlist/${wishlistId}`);
   }
 }

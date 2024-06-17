@@ -1,1 +1,57 @@
-<p>my-bookings works!</p>
+<app-hero title="My Bookings" backgroundImage="https://i.ibb.co/y8dNGcS/banner.jpg"></app-hero>
+
+<div class="container mx-auto py-10">
+    <div class="space-y-6">
+        <div *ngFor="let booking of bookings"
+            class="flex flex-col md:flex-row border rounded-lg shadow-md overflow-hidden">
+            <div class="md:w-1/3">
+                <img [src]="packageDetails[booking.packageID]?.packageImage" alt="Package Image"
+                    class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col justify-between w-full">
+                <div>
+                    <h2 class="text-2xl font-semibold">Booking ID: {{ booking.bookingId }}</h2>
+                    <h2 class="text-xl font-semibold">{{ packageDetails[booking.packageID]?.packageName }}</h2>
+                    <p class="mt-2"><strong>Country:</strong> {{ packageDetails[booking.packageID]?.packageCountry }}
+                    </p>
+                    <p><strong>City:</strong> {{ packageDetails[booking.packageID]?.packageCity }}</p>
+                    <p><strong>Price:</strong> {{ packageDetails[booking.packageID]?.packagePrice }}</p>
+                    <p><strong>Duration:</strong> {{ packageDetails[booking.packageID]?.packageDuration }}</p>
+                </div>
+                <div class="mt-4">
+                    <p><strong>Booking Date:</strong> {{ booking.bookingDate }}</p>
+                    <p><strong>Number of Rooms:</strong> {{ booking.bookingRooms }}</p>
+                    <button class="mt-4 bg-primary text-white px-4 py-2 rounded"
+                        (click)="openUpdateModal(booking)">Update Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Booking Modal -->
+    <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h5 class="text-xl font-medium">Update Booking</h5>
+                <button type="button" class="text-gray-400 hover:text-gray-600" (click)="closeModal()">×</button>
+            </div>
+            <form (ngSubmit)="updateBooking()">
+                <div class="mb-4">
+                    <label for="bookingDate" class="block text-sm font-medium text-gray-700">Booking Date</label>
+                    <input type="date" id="bookingDate" [(ngModel)]="selectedBooking.bookingDate" name="bookingDate"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div class="mb-4">
+                    <label for="bookingRooms" class="block text-sm font-medium text-gray-700">Number of Rooms</label>
+                    <input type="number" id="bookingRooms" [(ngModel)]="selectedBooking.bookingRooms"
+                        name="bookingRooms" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                        (click)="closeModal()">Close</button>
+                    <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
