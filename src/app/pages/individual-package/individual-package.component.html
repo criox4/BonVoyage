@@ -36,7 +36,7 @@
         </tbody>
     </table>
 
-    <div class="mt-8">
+    <div class="mt-8 flex space-x-4">
         <button *ngIf="!isLoggedIn" class="bg-gray-400 text-white py-2 px-4 rounded cursor-not-allowed">
             Not Logged in, Please Login First to book
         </button>
@@ -44,7 +44,7 @@
             class="bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition duration-300">
             Book the Package
         </button>
-        <button (click)="addToWishlist()"
+        <button *ngIf="isLoggedIn" (click)="addToWishlist()"
             class="bg-secondary text-white py-2 px-4 rounded hover:bg-primary transition duration-300">
             <i class="fas fa-bookmark"></i> Add to Wishlist
         </button>
