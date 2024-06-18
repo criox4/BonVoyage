@@ -33,8 +33,9 @@ export class BookingInformationComponent {
       bookingPerson: this.authService.getUserName(), // Use getUserName method
       bookingRooms: this.bookingRooms
     };
-
+    
     this.bookingService.createBooking(bookingData).subscribe(
+      
       (response) => {
         this.router.navigate(['/checkout-confirmation'], { state: { booking: response[0] } });
       },
